@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">BRAILS++: Building Regional Asset Inventories at Large Scale</h1>
+<h1 style="text-align: center;">BRAILS++RoofClassification:  Building Regional Asset Inventories at Large Scale</h1>
 
 [![Tests](https://github.com/NHERI-SimCenter/BrailsPlusPlus/actions/workflows/tests.yml/badge.svg)](https://github.com/NHERI-SimCenter/BrailsPlusPlus/actions/workflows/tests.yml/badge.svg)
 [![DOI](https://zenodo.org/badge/184673734.svg)](https://zenodo.org/badge/latestdoi/184673734)
@@ -7,7 +7,7 @@
 
 ## What is it?
 
-```BRAILS++``` is an object-oriented framework for building applications that focus on generating asset inventories for large geographic regions.
+```BRAILS++RoofClassification``` is adapted from ```BRAILS++```, an object-oriented framework for building applications that focus on generating asset inventories for large geographic regions, to include roof classifications.
 
 ## How is the repo laid out?
 
@@ -28,23 +28,11 @@
 
 ## Installation instructions
 
-```BRAILS++``` is NOT YET available on PyPI. For now, please install ```BRAILS++``` by issuing the following command.
-
 ```shell
-pip install git+https://github.com/NHERI-SimCenter/BrailsPlusPlus
+git clone https://github.com/noellelaw/BrailsPlusPlusRoofClassification
+python -m pip install -e . 
 ```
 
 ## Acknowledgments
 
-This work is based on material supported by the National Science Foundation under grants CMMI 1612843 and CMMI 2131111.
-
-
-## Contact
-
-NHERI-SimCenter nheri-simcenter@berkeley.edu
-
-<!-- todo: instructions on how to lint the code, and specific subfolder or file. -->
-<!-- todo: example with the test suite. -->
-<!-- todo: instructions on how to run the tests -->
-<!-- todo: instructions on how to check coverage -->
-<!-- python -m pytest tests --cov=brails --cov-report html -->
+This work is based on https://github.com/NHERI-SimCenter/BrailsPlusPlus
