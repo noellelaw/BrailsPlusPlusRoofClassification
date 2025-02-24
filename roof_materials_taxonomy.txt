@@ -1,0 +1,36 @@
+ROOF TAXONOMY
+
+1. Thatch - Elements are very small and semi ridged.
+
+2. Green / Vegetative - Elements are small and non-uniform. Modern category where a layer of soil and vegetation is placed over a waterproof membrane. It could be considered an extension of thatch, but it functions differently.
+
+3. Limestone Slates - Elements are small and ridged.
+
+4. Stone Slates - Elements are small and ridged.
+
+5. Clay Tiles - Elements are small and ridged.
+
+6. Asphalt Tiles - Elements are small and ridged.
+
+7. Concrete Tiles - Elements are small and ridged.
+
+8. Wood Tiles - Elements are small and ridged.
+
+9. Metal Sheet Materials - Elements are large and either ridged a corrugated with vertical and horizontal overlaps; or flexible and laid in large panels.
+
+10. Polycarbonate Sheet Materials - Elements are large and either ridged a corrugated with vertical and horizontal overlaps; or flexible and laid in large panels. Clear or painted. 
+
+11. Glass Sheet Materials – Some modern / high-end structures incorporate glass as a primary roofing material, which differs from polycarbonate sheets in transparency, durability, and application.
+
+12. Amorphous Concrete - Single element covering entire roof without joints.
+
+13. Amorphous Asphalt - Single element covering entire roof without joints.
+
+14. Amorphous Membrane - Single element covering entire roof without joints. Includes materials like EPDM (rubber roofing), TPO (thermoplastic polyolefin), and PVC (polyvinyl chloride), which are commonly used for flat or low-slope roofs.
+
+15. Amorphous Fabric (Tensile Structures) - Single element covering entire roof without joints. Some large-span structures use fabric-based membranes (e.g., PTFE-coated fiberglass or ETFE) stretched over a frame.
+
+
+CLASSES I AM UNSURE ABOUT
+
+Composite or Synthetic Roofing – Many modern roofing materials are made from recycled plastics, rubber, or a mix of materials designed to mimic natural materials like slate or wood while offering increased durability. I don't know if this can be discerned from satellite imagery.

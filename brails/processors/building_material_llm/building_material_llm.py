@@ -34,7 +34,37 @@ class BuildingMaterialLLM(CLIPClassifier):
             self.text_prompts = ['wood', 'steel', 'concrete', 'manufactured', 'masonry']
             self.classes = ['wood', 'steel', 'concrete', 'manufactured', 'masonry']
         self.template = "a photo of a house made of {}" 
+    
+
+    class BuildingMaterialLLM_Augmented(CLIPClassifier):
+
+        """
+        The BuildingMaterialLLM classifier attempts to predict building materials  using large language models.
+
+        Variables
         
+        Methods:
+        predict(ImageSet): To return the predictions for the set of images provided
+
+        """
+        
+        def __init__(self, input_dict: Optional[dict] =None):
+            
+            """
+            The class constructor sets up the path prompts or whatever.
+            
+            Args
+                input_data: dict Optional. The init function looks into dict for values needed, e.g. path to prompts
+            """
+            super().__init__(input_dict = input_dict)
+            self.input_dict = input_dict
+            if(self.input_dict!=None):
+                self.text_prompts = self.args['prompts']
+                self.classes = self.args['classes']
+            else:
+                self.text_prompts = ['wood', 'steel', 'concrete', 'manufactured', 'masonry']
+                self.classes = ['wood', 'steel', 'concrete', 'manufactured', 'masonry']
+            self.template = "a photo of a house made of {}" 
     # inherit method from CLIPClassifier
     # def predict(self, image: ImageSet):
 

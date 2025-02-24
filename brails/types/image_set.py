@@ -252,3 +252,12 @@ class ImageSet:
                     print('key: ', key, 'filename: ', image.filename,
                           ' properties: ', image.properties)
         print('\n')
+
+
+
+    def __delitem__(self, key):
+        del self.images[key]
+
+    def remove(self, key):
+        # Optionally provide a remove method
+        del self[key]

@@ -53,17 +53,17 @@ def main():
 
 
     # Get street level imagery for the selected subset using GoogleStreetview:
-    google_street_class = importer.get_class('GoogleStreetview')
-    google_street = google_street_class({'apiKey': api_key})
-    images_street = google_street.get_images(small_inventory, 'tmp/street/')
+    google_satellite_class = importer.get_class("GoogleSatellite")
+    google_satellite = google_satellite_class()
+    images_satellite = google_satellite.get_images(small_inventory, "tmp/satellite/")
 
-    images_street.print_info()
+    images_satellite.print_info()
 
     # Crop the obtained imagery such that they include just the buildings of
     # interest:
-    filter_house = importer.get_class('HouseView')
+    filter_house = importer.get_class('RoofView')
     image_filter = filter_house({})
-    filtered_images_street = image_filter.filter(images_street, 'tmp/filtered_images')
+    filtered_images_street = image_filter.filter(images_satellite, 'tmp/filtered_images')
     print('\nCropped images are available in ',
           Path(filtered_images_street.dir_path).resolve())
 
