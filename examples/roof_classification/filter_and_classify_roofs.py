@@ -44,14 +44,13 @@ def main():
 
     importer = Importer()
     roofshape_categories = ['flat','gabled', 'hipped']
-
+    '''
+    "San Juan, PR",
+    "Kyoto, Japan",
+    "Reykjavik, Iceland",
+    "Cartagena, Colombia",
+    "New York, NY",'''
     locations = [
-        "San Juan, PR",
-        "Kyoto, Japan",
-        "Reykjavik, Iceland",
-        "Cartagena, Colombia",
-        "New York, NY",
-        "Istanbul, Turkey",
         "Banff, Canada",
         "Barcelona, Spain",
         "Santiago, Chile",
