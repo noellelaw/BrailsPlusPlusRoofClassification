@@ -15,6 +15,8 @@ from pathlib import Path
 from brails import Importer
 import cv2
 
+from brails.types.image_set import ImageSet
+
 # This script needs a Google API Key to run.
 # We suggest placing your API key in file apiKey.txt in the same directory as
 # this script if you plan to commit changes to this example. This way, you do
@@ -41,10 +43,26 @@ def main():
     args = parser.parse_args()
 
     importer = Importer()
+    roofshape_categories = ['flat','gabled', 'hipped']
 
     locations = [
-            "Honolulu, HI", "San Juan, PR", "Tiburon, CA", "Manhattan, NY", 
-        ]
+        "San Juan, PR",
+        "Kyoto, Japan",
+        "Reykjavik, Iceland",
+        "Cartagena, Colombia",
+        "New York, NY",
+        "Istanbul, Turkey",
+        "Banff, Canada",
+        "Barcelona, Spain",
+        "Santiago, Chile",
+        "Sedona, AZ",
+        "Dubrovnik, Croatia",
+        "Kigali, Rwanda",
+        "Muscat, Oman",
+        "Tallinn, Estonia",
+        "Petra, Jordan",
+
+    ]
     for location in locations:
         region_boundary_class = importer.get_class("RegionBoundary")
         region_boundary_object = region_boundary_class({"type": "locationName", "data": location})
@@ -69,7 +87,7 @@ def main():
         # interest:
         filter_house = importer.get_class('RoofView')
         image_filter = filter_house({})
-        filtered_images_satellite = image_filter.filter(images_satellite, 'tmp/filtered_images')
+        filtered_images_satellite = image_filter.filter(images_satellite, 'tmp/filtered_images', small_inventory)
         print('\nCropped images are available in ',
             Path(filtered_images_satellite.dir_path).resolve())   
 
@@ -99,16 +117,36 @@ def main():
     print('RoofMaterial PREDICTIONS')
     my_class = importer.get_class('RoofMaterialLLM')
     my_classifier = my_class()
-    predictions = my_classifier.predict(filtered_images_satellite, text_prompts=my_classifier.text_prompts, classes=my_classifier.classes)
-    print(predictions)
+    basic_template = my_classifier.template
+    #need to turn this into a loop and then update each text prompt accordingly 
+    augmented_template = ""
     curr_dir = "tmp/filtered_images/"
-
     for idx, (key, img) in enumerate(filtered_images_satellite.images.items()):
-        filename = img.filename
-        pred = predictions[key]
-        img_path = os.path.join(curr_dir, filename)
+        img_name = filtered_images_satellite.images[key].filename
+        pred_image = ImageSet()
+        pred_image.dir_path = 'tmp/filtered_images'
+        pred_image.add_image(key, img_name, filtered_images_satellite.images[key].properties)
+        buildingheight = img_name.split('_')[-6][6:]
+        numstories = img_name.split('_')[-5][10:]
+        roofshape = img_name.split('_')[-4][9:]
+        fpArea = img_name.split('_')[-3][6:]
+        if buildingheight != 'NA':
+            augmented_template += f" Building height: {buildingheight}m."
+        if numstories != 'NA':
+            augmented_template += f" Num stories: {numstories}."
+        if roofshape != 'NA':
+            augmented_template += f" Roof shape: {roofshape}."
+        if fpArea != 'NA':
+            augmented_template += f" Footprint area: {fpArea}m."
+        if augmented_template == "":
+            my_classifier.template = basic_template 
+        else:
+            my_classifier.template = basic_template + augmented_template
+            augmented_template = ""
+        pred = my_classifier.predict(pred_image, text_prompts=my_classifier.text_prompts, classes=my_classifier.classes)
+        img_path = os.path.join(curr_dir, img_name)
         img = cv2.imread(img_path) 
-        save_path = os.path.join(DATASET_FOLDER,pred,filename)
+        save_path = os.path.join(DATASET_FOLDER, pred[key], img_name)
         cv2.imwrite(save_path, img)
 
 

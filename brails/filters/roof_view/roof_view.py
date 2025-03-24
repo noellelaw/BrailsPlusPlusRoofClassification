@@ -139,7 +139,9 @@ class RoofView(Filter):
     }
     return tgt
 
-  def _crop_and_save_img(self, tgt, output_dir, random = False):    
+  def _crop_and_save_img(self, tgt, output_dir, random = False, 
+    buildingheight = 'NA', numstories = 'NA', roofshape = 'NA', fparea = 'NA'
+  ):   
     '''
       Given cropping information from bound_one_image, perform cropping and save cropped image
       Inputs
@@ -149,6 +151,8 @@ class RoofView(Filter):
     
     boxes, labels = tgt["boxes"], tgt["labels"]
     img_name, img = tgt['img_name'], tgt['img_source']
+    new_name = f"height{buildingheight}_numstories{numstories}_roofshape{roofshape}_fpArea{fparea}_{img_name}"
+    img_name = new_name
     W, H = img.size
     
     assert len(boxes) == len(labels), "boxes and labels must have same length"
@@ -189,7 +193,7 @@ class RoofView(Filter):
     crop_dict = self._bound_one_image(image_path, self.text_prompt, self.box_treshhold, self.text_treshhold, model, device)
     self._crop_and_save_img(crop_dict, output_dir, random = False)
 
-  def filter(self, input_images: ImageSet,  output_dir: str):
+  def filter(self, input_images: ImageSet,  output_dir: str, inventory):
 
     
     def isImage(im):
@@ -224,8 +228,15 @@ class RoofView(Filter):
         #batch_keys.append(key)
         #batch_features.append(im.features)
         crop_dict = self._bound_one_image(image, self.text_prompt, self.box_treshhold, self.text_treshhold, model = None, device = device)
-        self._crop_and_save_img(crop_dict, output_dir, random = False)
-        output_images.add_image(key, im.filename, im.properties)
+        building_features = inventory.inventory[key].features
+        success, (img_name, bboxes) = self._crop_and_save_img(
+          crop_dict, output_dir, random = False, 
+          buildingheight = building_features['buildingheight'], 
+          numstories = building_features['numstories'],
+          roofshape = building_features['roofshape'],
+          fparea = building_features['fpAreas'] #footprint is x square meters
+        )
+        output_images.add_image(key, img_name, im.properties)
 
     return output_images
 
